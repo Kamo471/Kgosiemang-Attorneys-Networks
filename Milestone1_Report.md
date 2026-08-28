@@ -40,31 +40,7 @@ The physical topology is implemented using a Hierarchical Cisco Enterprise Netwo
 <img width="1066" height="834" alt="image" src="https://github.com/user-attachments/assets/5d762bfc-e480-4e9c-88c5-25c916e524bb" />
 ### 2.2 Workspace Interconnection Diagram
 * <img width="620" height="551" alt="image" src="https://github.com/user-attachments/assets/00b2f3d7-9ae3-4ba9-9a7e-f18f83ae6c58" />
- [ Cloud-PT Internet1 ]                                                [ Cloud-PT Internet2 ]
-          │                                                                      │
-          ▼                                                                      ▼
-    [ ISR4331 ISP1 ]                                                       [ ISR4331 ISP2 ]
-          │                                                                      │
-          ▼                                                                      ▼
-     [ ISR4331 R1 ]                                                         [ ISR4331 R2 ]
-          │                                                                      │
-          └───────────────────────────────► ┌───────────┐ ◄──────────────────────┘
-                                            │ 3650 24PS │
-                                            │CORE SWITCH│
-                                            └─┬───┬───┬─┘
-                 ┌────────────────────────────┘   │   └────────────────────────────┐
-                 ▼                                ▼                                ▼
-          [ 2960-24TT SW1 ]                [ 2960-24TT SW2 ]                [ 2960-24TT SW3 ]
-            │           │                    │           │                    │     │     │     │
-      ┌─────┴─────┐     │              ┌─────┴─────┐     │              ┌─────┴─┐   │     │     └─────┐
-      ▼           ▼     │              ▼           ▼     │              ▼       ▼   ▼     ▼           ▼
-  [ PC-PT ]   [ PC-PT ] │          [ PC-PT ]   [ Server-PT ]        [ PC-PT ]   [ Printer-PT ]    [ PC-PT ]  [ AccessPoint-PT ]
-   Mgmt-PC   Finance-PC │         Attorneys-PC Local-Server          Admin-PC  Network-Printer  Reception-PC   Access Point0
-                        │                                                                                           )
-                        │                                                                                          ( ) Wireless
-                        │                                                                                           )   Signal
-                        └───────────────────────────────────────────────────────────────────────────────────────► [ Laptop-PT ]
-                                                                                                                 Wireless-Laptop
+
 ```
 ### 2.3 Physical Port Interface Assignment Matrix
 
