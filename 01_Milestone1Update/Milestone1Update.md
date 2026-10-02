@@ -40,4 +40,5 @@ primary line is alive. If a physical outage breaks R1, the Core Switch instantly
 bringing the R2 backup path online in seconds to keep the office connected.
 
 3. IP ADRESS PLANNING
- <img width="1056" height="517" alt="image" src="https://github.com/user-attachments/assets/5b699a25-f306-45c6-9557-148d08a8a947" />
+ <img width="1537" height="456" alt="image" src="https://github.com/user-attachments/assets/4a0fb639-4a75-45a3-9bbb-3aae895bfcac" />
+
