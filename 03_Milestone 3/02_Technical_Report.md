@@ -1,4 +1,4 @@
-Technical Design and Configuration Report (Milestone 3 Final Submission)<\n>
+Technical Design and Configuration Report (Milestone 3 Final Submission)
 Module: CMPG 325 – Computer Networks 
 Project ID: CMPG325-2026-078 
 Client ID: CLI-078 
@@ -20,7 +20,7 @@ ________________________________________
 The campus topology adopts a formal hierarchical architecture engineered within Cisco Packet Tracer. By decoupling local access loops from layer-3 core processes, the infrastructure isolates structural faults and maximizes backbone frame throughput.
 2.1 Interface Connection Mappings
 Based on the verified project hardware wiring matrix, the physical infrastructure is cabled using the exact port distributions listed below:
- <img width="940" height="517" alt="image" src="https://github.com/user-attachments/assets/d9c1e9db-5d20-4e4f-812b-03a9b3e30770" />
+
 
 Edge and Core Backbone Links 
 •	Internet 1 (Ethernet 6) connects to ISP1 (Gig0/0/0) via Copper Straight-Through.
@@ -45,7 +45,7 @@ Access Layer Departmental Assignments SW1 (FastEth0/1) connects to Mgmt-PC (Fast
 ________________________________________
 3. Variable Length Subnet Masking (VLSM) IP Addressing Plan
 The assigned network space 192.168.39.0/24 has been subnetted to match the active runtime routing parameters of your Core Switch, preventing address overlaps while establishing secure gateways:
- <img width="940" height="364" alt="image" src="https://github.com/user-attachments/assets/8b06cba8-4b1e-4168-90a1-11cb96ade817" />
+
 
 4. Technical Configuration and Core Services
 4.1 Layer-3 Core Routing Engine & Gateway Layout
@@ -57,7 +57,7 @@ To satisfy the requirements of Change Request CR15, the firm is provisioned with
 •	Operational Logic: The floating route remains hidden from the active forwarding table during standard operation. If a physical line rupture or upstream link loss disrupts the R1 connection path, the core routing engine immediately updates its hardware topology, activating the secondary R2 line within seconds to maintain persistent firm uptime.
 
 4.3 DHCP Relay Agent and Central Server Pool Execution
- <img width="1040" height="686" alt="image" src="https://github.com/user-attachments/assets/99843624-2c04-40f3-912c-a3774c72d088" />
+
 
 The central firm repository (Local-Server) resides securely within the isolated Server Datacenter segment (VLAN 60). To allow broadcast DHCP requests from workstations to cross virtual router interfaces, active DHCP Relay Agents were configured across every active departmental SVI gateway using the Cisco IOS ip helper-address 192.168.39.178 command string.
 
@@ -67,12 +67,12 @@ Shared enterprise components like printers require persistent host addressing. T
 ________________________________________
 5. Verification, Testing, and Troubleshooting Evidence
 End-to-end operational functionality and network layer configuration validation were confirmed through rigorous, systematic trace testing inside the live simulation environment 
-<img width="414" height="511" alt="image" src="https://github.com/user-attachments/assets/098f64ab-6a7d-4d3c-8c5a-ac2271c3c274" />
-<img width="480" height="514" alt="image" src="https://github.com/user-attachments/assets/9efa450c-fb9b-4b79-952a-c3d3d8610804" />
-<img width="466" height="539" alt="image" src="https://github.com/user-attachments/assets/ef2a511f-c5df-4bb3-835b-436b6c2c4591" />
-<img width="446" height="534" alt="image" src="https://github.com/user-attachments/assets/0c0b5e83-40cc-4c72-9000-3f8d7a20b3fe" />
-<img width="459" height="580" alt="image" src="https://github.com/user-attachments/assets/381c7762-5184-495f-ad2a-43bee4f61b3b" />
-<img width="448" height="582" alt="image" src="https://github.com/user-attachments/assets/e75dd1ea-b1ca-4aa6-851c-7547d71c29db" />
+<img width="414" height="511" alt="image" src="https://github.com/user-attachments/assets/098f64ab-6a7d-4d3c-8c5a-ac2271c3c274\n" />
+<img width="480" height="514" alt="image" src="https://github.com/user-attachments/assets/9efa450c-fb9b-4b79-952a-c3d3d8610804\n" />
+<img width="466" height="539" alt="image" src="https://github.com/user-attachments/assets/ef2a511f-c5df-4bb3-835b-436b6c2c4591\n" />
+<img width="446" height="534" alt="image" src="https://github.com/user-attachments/assets/0c0b5e83-40cc-4c72-9000-3f8d7a20b3fe\n" />
+<img width="459" height="580" alt="image" src="https://github.com/user-attachments/assets/381c7762-5184-495f-ad2a-43bee4f61b3b\n" />
+<img width="448" height="582" alt="image" src="https://github.com/user-attachments/assets/e75dd1ea-b1ca-4aa6-851c-7547d71c29db\n" />
                  
   I forgot to test wireless Laptop in milestone 2                                                     
 5.1 Dynamic Host Lease Acquisition Evidence
