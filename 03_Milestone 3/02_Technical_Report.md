@@ -1,4 +1,4 @@
-Technical Design and Configuration Report (Milestone 3 Final Submission)
+Technical Design and Configuration Report (Milestone 3 Final Submission)<\n>
 Module: CMPG 325 – Computer Networks 
 Project ID: CMPG325-2026-078 
 Client ID: CLI-078 
