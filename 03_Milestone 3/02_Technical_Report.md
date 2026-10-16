@@ -73,8 +73,7 @@ End-to-end operational functionality and network layer configuration validation 
 <img width="446" height="534" alt="image" src="https://github.com/user-attachments/assets/0c0b5e83-40cc-4c72-9000-3f8d7a20b3fe" />
 <img width="459" height="580" alt="image" src="https://github.com/user-attachments/assets/381c7762-5184-495f-ad2a-43bee4f61b3b" />
 <img width="448" height="582" alt="image" src="https://github.com/user-attachments/assets/e75dd1ea-b1ca-4aa6-851c-7547d71c29db" />
-    
-              
+                 
   I forgot to test wireless Laptop in milestone 2                                                     
 5.1 Dynamic Host Lease Acquisition Evidence
 All active corporate endpoint systems successfully initiated link-layer negotiations and completed 4-way DHCP transactions to pull their planned network attributes:
