@@ -67,13 +67,7 @@ Shared enterprise components like printers require persistent host addressing. T
 ________________________________________
 5. Verification, Testing, and Troubleshooting Evidence
 End-to-end operational functionality and network layer configuration validation were confirmed through rigorous, systematic trace testing inside the live simulation environment 
-<img width="414" height="511" alt="image" src="https://github.com/user-attachments/assets/098f64ab-6a7d-4d3c-8c5a-ac2271c3c274\n" />
-<img width="480" height="514" alt="image" src="https://github.com/user-attachments/assets/9efa450c-fb9b-4b79-952a-c3d3d8610804\n" />
-<img width="466" height="539" alt="image" src="https://github.com/user-attachments/assets/ef2a511f-c5df-4bb3-835b-436b6c2c4591\n" />
-<img width="446" height="534" alt="image" src="https://github.com/user-attachments/assets/0c0b5e83-40cc-4c72-9000-3f8d7a20b3fe\n" />
-<img width="459" height="580" alt="image" src="https://github.com/user-attachments/assets/381c7762-5184-495f-ad2a-43bee4f61b3b\n" />
-<img width="448" height="582" alt="image" src="https://github.com/user-attachments/assets/e75dd1ea-b1ca-4aa6-851c-7547d71c29db\n" />
-                 
+
   I forgot to test wireless Laptop in milestone 2                                                     
 5.1 Dynamic Host Lease Acquisition Evidence
 All active corporate endpoint systems successfully initiated link-layer negotiations and completed 4-way DHCP transactions to pull their planned network attributes:
@@ -89,12 +83,6 @@ All active corporate endpoint systems successfully initiated link-layer negotiat
 •	Network-Printer: Fixed static allocation verified. IPv4 Address: 192.168.39.146, Subnet Mask: 255.255.255.240, Default Gateway: 192.168.39.145. Link status lights register active layer-1 execution
 
 5.3 ICMP Data Plane Inter-VLAN Routing Logs
- <img width="470" height="462" alt="image" src="https://github.com/user-attachments/assets/683c089e-3e87-4931-b0ae-4a7a22fbb089" />
- <img width="435" height="461" alt="image" src="https://github.com/user-attachments/assets/b2c0882d-f54c-4605-a5dd-38ad79f7c7d1" />
- <img width="463" height="437" alt="image" src="https://github.com/user-attachments/assets/12913518-f91d-4839-bd2c-a0f3c7f9b772" />
- <img width="443" height="431" alt="image" src="https://github.com/user-attachments/assets/73cf3a3f-4542-498b-9876-39e7e3f7a65c" />
- <img width="423" height="383" alt="image" src="https://github.com/user-attachments/assets/5dfa752b-6359-4960-8a71-c4e9334c594c" />
- <img width="471" height="377" alt="image" src="https://github.com/user-attachments/assets/2d626076-1377-4ea7-aaef-00ed78a6f4ea" />        
 To verify comprehensive data path connectivity across internal network boundaries, echo request ping strings were executed from separate endpoint segments to the central database (192.168.39.178):
 •	Management-PC to Local-Server (ping 192.168.39.178): 4 packets sent, 4 packets received | 0% packet loss.
 •	Finance-PC to Local-Server (ping 192.168.39.178): 4 packets sent, 4 packets received | 0% packet loss.
