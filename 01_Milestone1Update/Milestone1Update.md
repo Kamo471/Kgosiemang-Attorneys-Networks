@@ -1,44 +1,121 @@
-Clients requirements it remain the same as appear in my first document
-Physical Topology
-View my GitHub: https://github.com/Kamo471/Kgosiemang-Attorneys-Networks/tree/main/01_Milestone1Update
+**Course Code:** CMPG 325  
+**Project ID:** CMPG325-2026-078  
+**Client Name:** Kgosiemang & Associates Attorneys (Mahikeng)  
+**Assigned Network Constraint Block:** 192.168.39.0/24  
+**Date:** 28 August 2026  
 
-In my original physical port layout design, I ran into a critical routing roadblock: the physical transit ports (Gig1/0/1 and Gig1/0/2) on my CORE SWITCH were assigned to subnets that overlapped with the Future Expansion block This caused Cisco Packet Tracer to reject the interfaces on the physical layer.
-I have now completely fixed this issue by isolating the transit links safely outside the client ranges, activating the missing 3650 AC Power Supply module inside the hardware bay, and explicitly mapping AccessPoint0 to a dedicated distribution port on Switch 3 to prevent VLAN broadcast leaks 
+---
 
-Here is my updated, fully functional hardware interface connection matrix:
-<img width="847" height="641" alt="image" src="https://github.com/user-attachments/assets/1c905fd1-58ff-44a3-b3dc-654112bca6c3" />
-<img width="1057" height="618" alt="image" src="https://github.com/user-attachments/assets/a728a1e0-f4d9-4174-83e8-2246535c1d85" />
+## 1. Client Requirements & Design Assumptions
+### 1.1 Requirements identified from the project brief:
+* The network must use the assigned addressing block **192.168.39.0/24**. 
+* The network must provide appropriate connectivity and network services. 
+* The network must include appropriate routers, switches, end devices and other required network nodes. 
+* The network must be designed and simulated using Cisco Packet Tracer. 
+* The network must include a Wireless LAN with Access Point integration and coverage. 
+* The Wireless LAN must be configured, verified and demonstrated. 
+* The network must accommodate the addition of a new department next year. 
+* The network must incorporate CR15, which requires a second Internet connection for resilience. 
+* End-to-end connectivity must be tested. 
+* The assigned Wireless LAN challenge must be tested. 
+* Important design decisions, configuration, testing and troubleshooting must be documented in the GitHub portfolio.
 
-2. Logical Topology
-   
-In my original logical topology layout, I ran into a massive network design flaw: local DHCP discover broadcasts (255.255.255.255) were completely trapped inside their own departmental VLAN networks. Because my Local-Server sits in its own isolated subnet on VLAN 60, the broadcast frames sent by client workstations could not cross virtual Layer 3 switch boundaries. This caused all end devices to time out and generate useless APIPA addresses (169.254.x.x).
-I have now completely fixed this communication block by configuring an active DHCP Relay Agent (IP helper-address 192.168.39.178) on every single virtual departmental gateway interface (SVI) inside my CORE SWITCH. This policy intercepts the local broadcast packets, rewrites them into targeted unicast frames, and routes them cleanly across the Layer 3 core backbone directly to the server environment.
-Additionally, I corrected the routing conflict parameters for CR15 Edge Resilience. My primary and floating backup pathways are now tied to separate, non-overlapping transit networks, allowing the automated failover engine to route outbound traffic smoothly.
-________________________________________
-My Logical Inter-VLAN Data Flow Diagram
+### 1.2 Design Assumptions
+* The organisation consists of Management, Attorneys, Administration, Finance and Reception departments. 
+* Each department is assumed to have an appropriate number of desktop computers. 
+* Attorneys and selected management staff are assumed to use laptops. 
+* Network printers are assumed to be available for document-related activities. 
+* An internal server is assumed to provide required network services. 
+* Departments are logically separated using VLANs and separate IP subnets. 
+* A dedicated Wireless LAN is provided for wireless users. 
+* A dedicated subnet is reserved for the future department. 
+* Two Internet connections are included to satisfy CR15 and provide resilience. 
+* The proposed network is an engineered solution based on the project scenario and does not claim to reproduce the actual network of Kgosiemang & Associates Attorneys.
 
-This diagram visualizes how data travels through the virtual subnets, cross-routes through the Core switch relay, and achieves resilient failover out of the firm:
-<img width="1063" height="780" alt="image" src="https://github.com/user-attachments/assets/1432233d-4a94-4e1c-9c19-0c7297434544" />
+* ## 2. Physical Topology
 
-My Automated Failover Path Routing Logic (CR15 Resilience Verification) 
-To fulfill the corporate resilience parameters, I injected static routing pathways into my CORE SWITCH
-system configuration framework:
+The physical topology is implemented using a Hierarchical Cisco Enterprise Network design. A Multilayer Layer 3 Core Switch serves as the backbone routing engine, connecting downstream access layer switches to the resilient dual-router edge infrastructure.
 
-. Primary Outbound Pathway Execution: An outbound default route directs all standard office 
-internet frames straight down the high-speed transit highway to R1 using a metric / 
-Administrative Distance of 1.
+### 2.1 Workspace Network Layout Snapshot
+<img width="1066" height="834" alt="image" src="https://github.com/user-attachments/assets/5d762bfc-e480-4e9c-88c5-25c916e524bb" />
+### 2.2 Workspace Interconnection Diagram
+* <img width="620" height="551" alt="image" src="https://github.com/user-attachments/assets/00b2f3d7-9ae3-4ba9-9a7e-f18f83ae6c58" />
 
- IP route 0.0.0.0 0.0.0.0 192.168.39.194
- 
-Resilient Floating Backup Pathway Execution: A secondary floating default route points traffic down the 
-alternative edge loop to R2 with an elevated Administrative Distance of 10.
+```
+### 2.3 Physical Port Interface Assignment Matrix
 
- IP route 0.0.0.0 0.0.0.0 192.168.39.198 10
- 
-Runtime Dynamic Protection: The floating backup route stays hidden from the routing table while the 
-primary line is alive. If a physical outage breaks R1, the Core Switch instantly updates its hardware table, 
-bringing the R2 backup path online in seconds to keep the office connected.
+| Uplink Source Device Node | Outbound Port | Downstream Destination Node | Inbound Port | Cable Medium Specification | Intended Design Role / Operational Purpose |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Cloud-PT Internet1** | Ethernet 6 | **ISR4331 ISP1** | Gig0/0/1 | Copper Straight-Through | Upstream primary injection path link |
+| **Cloud-PT Internet2** | Ethernet 6 | **ISR4331 ISP2** | Gig0/0/1 | Copper Straight-Through | Upstream resilient backup injection link |
+| **ISR4331 ISP1** | Gig0/0/0 | **ISR4331 R1** | Gig0/0/1 | Copper Straight-Through | Public facing WAN boundary carrier link |
+| **ISR4331 ISP2** | Gig0/0/0 | **ISR4331 R2** | Gig0/0/1 | Copper Straight-Through | Public facing redundant WAN carrier link |
+| **ISR4331 R1** | Gig0/0/0 | **3650 24PS CORE SWITCH** | Gig1/0/1 | Copper Straight-Through | Primary `/30` Backbone Transit Highway link |
+| **ISR4331 R2** | Gig0/0/0 | **3650 24PS CORE SWITCH** | Gig1/0/2 | Copper Straight-Through | Backup `/30` Resilient Transit Highway link |
+| **3650 24PS CORE SWITCH** | Gig1/0/3 | **2960-24TT SW1** | Gig0/1 | Copper Straight-Through | IEEE 802.1Q Native Trunk uplink line |
+| **3650 24PS CORE SWITCH** | Gig1/0/4 | **2960-24TT SW2** | Gig0/1 | Copper Straight-Through | IEEE 802.1Q Native Trunk uplink line |
+| **3650 24PS CORE SWITCH** | Gig1/0/5 | **2960-24TT SW3** | Gig0/1 | Copper Straight-Through | IEEE 802.1Q Native Trunk uplink line |
+| **2960-24TT SW1** | FastEthernet0/1 | **PC-PT Mgmt-PC** | FastEthernet0 | Copper Straight-Through | Access link assigned to Management (VLAN 10) |
+| **2960-24TT SW1** | FastEthernet0/11| **PC-PT Finance-PC** | FastEthernet0 | Copper Straight-Through | Access link assigned to Finance (VLAN 40) |
+| **2960-24TT SW2** | FastEthernet0/1 | **PC-PT Attorneys-PC**| FastEthernet0 | Copper Straight-Through | Access link assigned to Attorneys (VLAN 20) |
+| **2960-24TT SW2** | FastEthernet0/24| **Server-PT Local-Server**| FastEthernet0 | Copper Straight-Through | Server access link bound to Datacenter (VLAN 60) |
+| **2960-24TT SW3** | FastEthernet0/1 | **PC-PT Admin-PC** | FastEthernet0 | Copper Straight-Through | Access link assigned to Administration (VLAN 30) |
+| **2960-24TT SW3** | FastEthernet0/11| **PC-PT Reception-PC**| FastEthernet0 | Copper Straight-Through | Access link assigned to Reception (VLAN 50) |
+| **2960-24TT SW3** | FastEthernet0/15| **Printer-PT Network-Printer**| FastEthernet0| Copper Straight-Through| Peripherals access link bound to VLAN 50 |
+| **2960-24TT SW3** | FastEthernet0/20| **AccessPoint-PT Access Point0**| Port 0 | Copper Straight-Through | Static distribution link assigned to WLAN (VLAN 70) |
 
-3. IP ADRESS PLANNING
- <img width="1537" height="456" alt="image" src="https://github.com/user-attachments/assets/4a0fb639-4a75-45a3-9bbb-3aae895bfcac" />
+---
+
+## 3. Logical Topology & Routing Design
+
+The internal inter-VLAN corporate traffic is maintained directly on the multilayer core backbone. Although frame pipelines run across common physical trunks, layer-3 virtual boundaries isolate individual broadcast domains.
+
+### 3.1 Flowchart Layout
+```text
+  [ Internal Departmental VLANs ]
+  (10, 20, 30, 40, 50, 60, 70)
+                │
+                ▼ (802.1Q Encapsulation)
+    [ 3650 Multilayer Core Switch ] ──► (Performs local layer-3 routing)
+                │
+        ┌───────┴───────┐
+        │               │
+        ▼               ▼
+   (Primary Path)  (Floating Backup Path)
+     Metric: 1       Metric: 10
+        │               │
+  Transit .160/30  Transit .164/30
+        │               │
+        ▼               ▼
+     [ R1 ]          [ R2 ]
+        │               │
+        ▼               ▼
+    [ ISP 1 ]       [ ISP 2 ]
+```
+
+### 3.2 Automated Edge Path Routing Flow (CR15 Resilience)
+* **Primary Gateway Definition:** The Core Switch pathways point outbound corporate internet frames directly down the primary transit line to **R1** (`ip route 0.0.0.0 0.0.0.0 192.168.39.162`) with an Administrative Distance of 1.
+* **Floating Backup Definition:** A second floating backup route points traffic down the secondary line to **R2** (`ip route 0.0.0.0 0.0.0.0 192.168.39.166 10`) with an elevated Administrative Distance of 10.
+* **Failover Engine Mechanics:** The backup route remains inactive while the primary gateway connection is alive. If a hardware outage strikes R1, the Core Switch instantly fails over to R2 and ISP2. This meets the CR15 redundancy parameters perfectly.
+
+---
+
+## 4. IP Addressing Plan
+
+The assigned network space `192.168.39.0/24` has been custom-subnetted using Variable Length Subnet Masking (VLSM) to accommodate departmental host capacities, reserve expansion space, and establish resilient backbone pathways.
+
+| VLAN ID | Department / Function | Host Capacity | Subnet Address | Subnet Mask | Assignable Host Range | Default Gateway |
+| :---: | :--- | :---: | :--- | :--- | :--- | :--- |
+| **10** | Management | 10 | 192.168.39.0/28 | 255.255.255.240 | 192.168.39.2 – 192.168.39.14 | 192.168.39.1 |
+| **20** | Attorneys | 25 | 192.168.39.16/27 | 255.255.255.224 | 192.168.39.18 – 192.168.39.46 | 192.168.39.17 |
+| **30** | Administration | 8 | 192.168.39.48/28 | 255.255.255.240 | 192.168.39.50 – 192.168.39.62 | 192.168.39.49 |
+| **40** | Finance | 12 | 192.168.39.64/28 | 255.255.255.240 | 192.168.39.66 – 192.168.39.78 | 192.168.39.65 |
+| **50** | Reception | 5 | 192.168.39.80/28 | 255.255.255.240 | 192.168.39.82 – 192.168.39.94 | 192.168.39.81 |
+| **60** | Local Servers | 2 | 192.168.39.96/28 | 255.255.255.240 | 192.168.39.98 – 192.168.39.110 | 192.168.39.97 |
+| **70** | Wireless LAN | 5 | 192.168.39.112/28 | 255.255.255.240 | 192.168.39.114 – 192.168.39.126 | 192.168.39.113 |
+| **80** | Future Expansion | 50 | 192.168.39.128/26 | 255.255.255.192 | 192.168.39.130 – 192.168.39.190 | 192.168.39.129 |
+| **──** | Transit (Core-to-R1) | 2 | 192.168.39.160/30 | 255.255.255.252 | 192.168.39.161 – 192.168.39.162 | N/A |
+| **──** | Transit (Core-to-R2) | 2 | 192.168.39.164/30 | 255.255.255.252 | 192.168.39.165 – 192.168.39.166 | N/A |
+
+
 
