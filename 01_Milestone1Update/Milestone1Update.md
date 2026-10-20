@@ -96,7 +96,7 @@ The internal inter-VLAN corporate traffic is maintained directly on the multilay
 ### 3.2 Automated Edge Path Routing Flow (CR15 Resilience)
 * **Primary Gateway Definition:** The Core Switch pathways point outbound corporate internet frames directly down the primary transit line to **R1** (`ip route 0.0.0.0 0.0.0.0 192.168.39.162`) with an Administrative Distance of 1.
 * **Floating Backup Definition:** A second floating backup route points traffic down the secondary line to **R2** (`ip route 0.0.0.0 0.0.0.0 192.168.39.166 10`) with an elevated Administrative Distance of 10.
-* **Failover Engine Mechanics:** The backup route remains inactive while the primary gateway connection is alive. If a hardware outage strikes R1, the Core Switch instantly fails over to R2 and ISP2. This meets the CR15 redundancy parameters perfectly.
+* **Failover Engine Mechanics:** The backup route remains inactive while the primary gateway connection is alive. If a hardware outage strikes R1, the Core Switch instantly fails over to R2 and ISP2. This meets the CR15 redundancy parameters perfectlly.
 
 ---
 
